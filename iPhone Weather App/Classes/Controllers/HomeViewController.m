@@ -22,14 +22,18 @@
     [self configureData];
     [self configureControllers];
     [self configureScrollView];
+    [self checkDeleteLocations];
 }
 
 - (void)configureData {
     self.controllers = [NSMutableArray new];
     self.locations = [NSMutableArray new];
     
+    self.searchController = [[UIStoryboard storyboardWithName:@"Search" bundle:nil] instantiateViewControllerWithIdentifier:@"Search"];
+    self.searchController.delegate = self;
+    
     //user default settings
-    [self restoreSettings];
+    [self restoreLocations];
     
     //add default locations
     if ([self.locations count] == 0) {
@@ -41,13 +45,14 @@
     }
     
     NSLog(@"LOCATIONS: %@", self.locations);
+    
+    [self saveLocations];
 }
 
 - (void)configureControllers {
     
     for (NSString *query in self.locations) {
-        ForecastViewController* forecastVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"Forecast"];
-//        ForecastViewController* forecastVC = [[ForecastViewController alloc] init];
+        ForecastViewController* forecastVC = [[UIStoryboard storyboardWithName:@"Forecast" bundle:nil] instantiateViewControllerWithIdentifier:@"Forecast"];
         forecastVC.query = query;
         [self.controllers addObject:forecastVC];
     }
@@ -79,10 +84,7 @@
         NSLog(@"QUERY: %@", controller.query);
         [self addChildViewController:controller];
         
-//        CGRect frame = CGRectMake(self.view.bounds.size.width * i, 0, self.view.bounds.size.width, self.view.bounds.size.height);
-        
-        CGRect frame = [self viewFrameWithX0:(self.view.bounds.size.width * i) frameSize:self.view.bounds.size];
-
+        CGRect frame = [self viewFrameWithX0:(self.view.bounds.size.width * i) frameSize:self.scrollView.bounds.size];
         
         NSLog(@"VIEW %d = ORIGIN X: %f", i, frame.origin.x);
         NSLog(@"VIEW %d = ORIGIN Y: %f", i, frame.origin.y);
@@ -112,7 +114,7 @@
     
     CGFloat borderWidth = 15.0f;
     CGFloat bottomOffset = 40.0f;
-    return CGRectMake(xOrigin + borderWidth, borderWidth, viewFrameSize.width - borderWidth - borderWidth, viewFrameSize.height - borderWidth*2 - bottomOffset*2);
+    return CGRectMake(xOrigin + borderWidth, borderWidth, viewFrameSize.width - borderWidth - borderWidth, viewFrameSize.height - borderWidth*2 - bottomOffset);
 }
 
 -(void)addBasicConstraintsOnSubView:(UIView *)subView onSuperView:(UIView *)superView {
@@ -193,13 +195,13 @@
 
 #pragma mark - Model Functions
 
--(void)saveSettings {
+-(void)saveLocations {
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:self.locations] forKey:@"locations"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(void)restoreSettings {
+-(void)restoreLocations {
     // locations array
     NSData *dataArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"locations"];
     if (dataArray != nil) {
@@ -218,10 +220,26 @@
 
 #pragma mark - Actions
 - (IBAction)addLocation:(id)sender {
-    
+    [self presentViewController:self.searchController animated:YES completion:nil];
 }
 
-#pragma mark - PageControl stuff
+- (IBAction)deleteLocation:(id)sender {
+    if (self.pageControl.numberOfPages > 1) {
+        [self removeLocationAtIndex:self.pageControl.currentPage];
+    }
+}
+
+- (void)checkDeleteLocations {
+    if (self.controllers.count > 1) {
+        self.navigationItem.leftBarButtonItem = self.deleteLocationButton;
+    } else {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+}
+
+
+#pragma mark - PageControl ValueChange
+
 - (IBAction)changePage:(id)sender
 {
     CGRect frame = self.scrollView.frame;
@@ -230,6 +248,131 @@
     
     [self.scrollView scrollRectToVisible:frame animated:YES];
     self.pageControlUsed = YES;
+}
+
+#pragma mark - SearchController Delegate
+
+- (void) searchFinishedWithLocation:(NSString *)location{
+    [self addLocationWithLocation:location];
+}
+
+- (void)addLocationWithLocation:(NSString*)location {
+    
+    [self.locations addObject:location];
+    [self saveLocations];
+    
+    ForecastViewController* controller = [[UIStoryboard storyboardWithName:@"Forecast" bundle:nil] instantiateViewControllerWithIdentifier:@"Forecast"];
+    controller.query = location;
+    NSLog(@"QUERY: %@", controller.query);
+    
+    [self.controllers addObject:controller];
+    
+    //scroll content sizes
+    CGFloat contentWidth = self.scrollView.frame.size.width * (self.controllers.count);
+    CGFloat contentHeight = self.scrollView.frame.size.height;
+    
+    self.contentView.frame = CGRectMake(0, 0, contentWidth, contentHeight);
+    
+    //for new controller
+    int index = (int)([self.controllers count] -1);
+    NSLog(@"INDEX: %d", index);
+    
+    //for each controller
+    for (int i=0;i<[self.controllers count];i++) {
+        
+        ForecastViewController *controller = (ForecastViewController *)[self.controllers objectAtIndex:i];
+        
+        NSLog(@"QUERY: %@", controller.query);
+        CGRect frame = [self viewFrameWithX0:(self.view.bounds.size.width * i) frameSize:self.scrollView.bounds.size];
+        controller.view.frame = frame;
+        
+        if (i == index) {
+            [self addChildViewController:controller];
+            [self.contentView addSubview:controller.view];
+        }
+        
+        [self addBasicConstraintsOnSubView:controller.view onSuperView:self.contentView];
+        
+        [controller.view layoutIfNeeded];
+        [self.contentView layoutIfNeeded];
+    }
+    
+    self.scrollView.contentSize = CGSizeMake(contentWidth, contentHeight);
+    NSLog(@"CONTENT SIZE: %f, %f", contentWidth, contentHeight);
+    
+    //set origin to first view
+    CGFloat pointX = self.view.bounds.size.width * index;
+    NSLog(@"POINT X: %f", pointX);
+    
+    CGPoint scrollPoint = CGPointMake(pointX, 0);
+    [self.scrollView setContentOffset:scrollPoint animated:NO];
+    self.pageControl.numberOfPages = self.controllers.count;
+    self.pageControl.currentPage = self.controllers.count;
+}
+
+- (void)removeLocationAtIndex:(NSInteger)index {
+    
+    if ([self.controllers count] < 1) {
+        self.pageControl.numberOfPages = 0;
+        return;
+    }
+    
+    // Now the thing to do is to figure out if we have a controller tracking location.
+    // If so, increment index by one.
+    NSUInteger pageIndex = index;
+    
+    // remove page with index... from UIScrollView
+    NSLog(@"removing page: %d", (int)pageIndex);
+    
+    NSString* location;
+    if ([self.locations count] > 0) {
+        location = [self.locations objectAtIndex:pageIndex];
+        [self.locations removeObjectAtIndex:pageIndex];
+    }
+    
+    ForecastViewController* controller;
+    if ([self.controllers count] > 0) {
+        // removeObjectAtIndex will release the object, no need to release controller
+        controller = [self.controllers objectAtIndex:pageIndex];
+        [controller.view removeFromSuperview];
+        [self.controllers removeObjectAtIndex:pageIndex];
+    }
+    
+    //scroll content sizes
+    CGFloat contentWidth = self.scrollView.frame.size.width * (self.controllers.count);
+    CGFloat contentHeight = self.scrollView.frame.size.height;
+    
+    self.contentView.frame = CGRectMake(0, 0, contentWidth, contentHeight);
+    
+    // shift all the views afterwards to the left
+    //for each controller
+    for (int i=0;i<[self.controllers count];i++) {
+        
+        ForecastViewController *controller = (ForecastViewController *)[self.controllers objectAtIndex:i];
+        
+        NSLog(@"QUERY: %@", controller.query);
+        CGRect frame = [self viewFrameWithX0:(self.view.bounds.size.width * i) frameSize:self.scrollView.bounds.size];
+        controller.view.frame = frame;
+        
+        [self addBasicConstraintsOnSubView:controller.view onSuperView:self.contentView];
+        
+        [controller.view layoutIfNeeded];
+        [self.contentView layoutIfNeeded];
+    }
+    
+    self.scrollView.contentSize = CGSizeMake(contentWidth, contentHeight);
+    NSLog(@"CONTENT SIZE: %f, %f", contentWidth, contentHeight);
+    
+    CGPoint scrollPoint = CGPointMake(0, 0);
+    [self.scrollView setContentOffset:scrollPoint animated:NO];
+    
+    // fix up PageControl
+    self.pageControl.numberOfPages = self.controllers.count;
+    
+    // save locations
+    [self saveLocations];
+    
+    [self checkDeleteLocations];
 }
 
 @end

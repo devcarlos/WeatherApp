@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Weather.h"
+#import "PullToRefreshView.h"
 
-@interface ForecastViewController : UIViewController
+@interface ForecastViewController : UIViewController <PullToRefreshViewDelegate>
 
 //IBOutlets
 @property (weak, nonatomic) IBOutlet UIImageView *backImage;
@@ -27,6 +28,7 @@
 //Properties
 @property (strong, nonatomic) NSString* query;
 @property (strong, nonatomic) Weather* weather;
+@property (strong, nonatomic) PullToRefreshView* refreshView;
 @property (assign, nonatomic) BOOL useImperial;
 
 

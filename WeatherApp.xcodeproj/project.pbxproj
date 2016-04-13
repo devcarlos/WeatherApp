@@ -21,6 +21,12 @@
 		13B782B61CB7370500B7E197 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B782B51CB7370500B7E197 /* APIManager.m */; };
 		13B782BD1CB73FEE00B7E197 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B782BC1CB73FEE00B7E197 /* ParseManager.m */; };
 		13B782C11CB74A2A00B7E197 /* Validator.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B782C01CB74A2A00B7E197 /* Validator.m */; };
+		13EE69521CBC5614000A56E5 /* ForecastCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13EE69501CBC5614000A56E5 /* ForecastCell.m */; };
+		13EE69531CBC5614000A56E5 /* ForecastCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13EE69511CBC5614000A56E5 /* ForecastCell.xib */; };
+		13EE69571CBC5A76000A56E5 /* UIImage+RSRoundCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 13EE69561CBC5A76000A56E5 /* UIImage+RSRoundCorners.m */; };
+		13EE695B1CBC60ED000A56E5 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13EE695A1CBC60ED000A56E5 /* SearchViewController.m */; };
+		13FCA1491CBD58D700138DC2 /* Forecast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13FCA1481CBD58D700138DC2 /* Forecast.storyboard */; };
+		13FCA14B1CBD58F500138DC2 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13FCA14A1CBD58F500138DC2 /* Search.storyboard */; };
 		13FD4D551CB6C38700C3A92E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FD4D541CB6C38700C3A92E /* main.m */; };
 		13FD4D581CB6C38700C3A92E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FD4D571CB6C38700C3A92E /* AppDelegate.m */; };
 		13FD4D5E1CB6C38700C3A92E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13FD4D5C1CB6C38700C3A92E /* Main.storyboard */; };
@@ -68,6 +74,15 @@
 		13B782BC1CB73FEE00B7E197 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParseManager.m; path = Classes/Managers/ParseManager.m; sourceTree = "<group>"; };
 		13B782BF1CB74A2A00B7E197 /* Validator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Validator.h; path = Classes/Utils/Validator.h; sourceTree = "<group>"; };
 		13B782C01CB74A2A00B7E197 /* Validator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Validator.m; path = Classes/Utils/Validator.m; sourceTree = "<group>"; };
+		13EE694F1CBC5614000A56E5 /* ForecastCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForecastCell.h; path = Classes/Views/CustomCells/ForecastCell.h; sourceTree = "<group>"; };
+		13EE69501CBC5614000A56E5 /* ForecastCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForecastCell.m; path = Classes/Views/CustomCells/ForecastCell.m; sourceTree = "<group>"; };
+		13EE69511CBC5614000A56E5 /* ForecastCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ForecastCell.xib; path = Classes/Views/CustomCells/ForecastCell.xib; sourceTree = "<group>"; };
+		13EE69551CBC5A76000A56E5 /* UIImage+RSRoundCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RSRoundCorners.h"; sourceTree = "<group>"; };
+		13EE69561CBC5A76000A56E5 /* UIImage+RSRoundCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RSRoundCorners.m"; sourceTree = "<group>"; };
+		13EE69591CBC60ED000A56E5 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Classes/Controllers/SearchViewController.h; sourceTree = "<group>"; };
+		13EE695A1CBC60ED000A56E5 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = Classes/Controllers/SearchViewController.m; sourceTree = "<group>"; };
+		13FCA1481CBD58D700138DC2 /* Forecast.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Forecast.storyboard; path = Storyboards/Forecast.storyboard; sourceTree = "<group>"; };
+		13FCA14A1CBD58F500138DC2 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = Storyboards/Search.storyboard; sourceTree = "<group>"; };
 		13FD4D501CB6C38700C3A92E /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13FD4D541CB6C38700C3A92E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		13FD4D561CB6C38700C3A92E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -106,6 +121,7 @@
 		136D9B401CBB21EC00DB8E4C /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				13EE69541CBC5A76000A56E5 /* UIImage+RSRoundCorners */,
 				136D9B411CBB21EC00DB8E4C /* PullToRefresh */,
 			);
 			path = Vendors;
@@ -169,6 +185,33 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		13EE694A1CBC556E000A56E5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				13EE694B1CBC5581000A56E5 /* CustomCells */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		13EE694B1CBC5581000A56E5 /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				13EE694F1CBC5614000A56E5 /* ForecastCell.h */,
+				13EE69501CBC5614000A56E5 /* ForecastCell.m */,
+				13EE69511CBC5614000A56E5 /* ForecastCell.xib */,
+			);
+			name = CustomCells;
+			sourceTree = "<group>";
+		};
+		13EE69541CBC5A76000A56E5 /* UIImage+RSRoundCorners */ = {
+			isa = PBXGroup;
+			children = (
+				13EE69551CBC5A76000A56E5 /* UIImage+RSRoundCorners.h */,
+				13EE69561CBC5A76000A56E5 /* UIImage+RSRoundCorners.m */,
+			);
+			path = "UIImage+RSRoundCorners";
+			sourceTree = "<group>";
+		};
 		13FD4D471CB6C38700C3A92E = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +271,7 @@
 				13B782B71CB7370900B7E197 /* Managers */,
 				13B782A61CB7327C00B7E197 /* Models */,
 				13FD4D7A1CB6C3C100C3A92E /* Controllers */,
+				13EE694A1CBC556E000A56E5 /* Views */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -248,6 +292,8 @@
 				13B782A11CB7325600B7E197 /* HomeViewController.m */,
 				13B782A31CB7327400B7E197 /* ForecastViewController.h */,
 				13B782A41CB7327400B7E197 /* ForecastViewController.m */,
+				13EE69591CBC60ED000A56E5 /* SearchViewController.h */,
+				13EE695A1CBC60ED000A56E5 /* SearchViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -256,6 +302,8 @@
 			isa = PBXGroup;
 			children = (
 				13FD4D5C1CB6C38700C3A92E /* Main.storyboard */,
+				13FCA1481CBD58D700138DC2 /* Forecast.storyboard */,
+				13FCA14A1CBD58F500138DC2 /* Search.storyboard */,
 				13FD4D611CB6C38700C3A92E /* LaunchScreen.storyboard */,
 			);
 			name = Storyboards;
@@ -369,10 +417,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13FCA1491CBD58D700138DC2 /* Forecast.storyboard in Resources */,
 				13FD4D631CB6C38700C3A92E /* LaunchScreen.storyboard in Resources */,
 				136D9B491CBB21EC00DB8E4C /* arrow@2x.png in Resources */,
+				13EE69531CBC5614000A56E5 /* ForecastCell.xib in Resources */,
 				13FD4D601CB6C38700C3A92E /* Assets.xcassets in Resources */,
 				13FD4D5E1CB6C38700C3A92E /* Main.storyboard in Resources */,
+				13FCA14B1CBD58F500138DC2 /* Search.storyboard in Resources */,
 				136D9B481CBB21EC00DB8E4C /* arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -444,12 +495,15 @@
 				131E80F61CB8438100C7EECC /* Astronomy.m in Sources */,
 				13B782B61CB7370500B7E197 /* APIManager.m in Sources */,
 				13B782A51CB7327400B7E197 /* ForecastViewController.m in Sources */,
+				13EE695B1CBC60ED000A56E5 /* SearchViewController.m in Sources */,
 				13FD4D551CB6C38700C3A92E /* main.m in Sources */,
 				13B782B21CB7344F00B7E197 /* Forecast.m in Sources */,
 				131E80F91CB8439200C7EECC /* HourlyWeather.m in Sources */,
+				13EE69571CBC5A76000A56E5 /* UIImage+RSRoundCorners.m in Sources */,
 				13B782A21CB7325600B7E197 /* HomeViewController.m in Sources */,
 				13B782A91CB733CF00B7E197 /* Weather.m in Sources */,
 				136D9B4B1CBB21EC00DB8E4C /* PullToRefreshView.m in Sources */,
+				13EE69521CBC5614000A56E5 /* ForecastCell.m in Sources */,
 				13B782AC1CB733E900B7E197 /* Request.m in Sources */,
 				13B782C11CB74A2A00B7E197 /* Validator.m in Sources */,
 				13B782BD1CB73FEE00B7E197 /* ParseManager.m in Sources */,

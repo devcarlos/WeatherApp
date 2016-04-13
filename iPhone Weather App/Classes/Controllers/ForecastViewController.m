@@ -12,6 +12,8 @@
 #import <UIActivityIndicator-for-SDWebImage/UIImageView+UIActivityIndicatorForSDWebImage.h>
 #import "APIManager.h"
 #import "ParseManager.h"
+#import "ForecastCell.h"
+#import "UIImage+RSRoundCorners.h"
 
 @interface ForecastViewController ()
 
@@ -48,8 +50,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //configure default appeareance
+    //initial configure
     [self configureAppearance];
+    [self configureTable];
     [self loadWeather];
 }
 
@@ -60,6 +63,15 @@
     [self.view.layer setBorderWidth:1.5f];
     [self.view.layer setBorderColor:[UIColor lightGrayColor].CGColor];
 }
+
+- (void)configureTable {
+    
+    //register NIBs
+    NSString *nibName = @"ForecastCell";
+    [self.tableView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellReuseIdentifier:nibName];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -144,12 +156,95 @@
                                  options:SDWebImageRefreshCached
                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                    NSLog(@"Image Download Complete!");
+                                   self.weatherImage.image = [[image roundCornersWithRadius:3.0] imageScaledToSize:CGSizeMake(65, 65)];
                                }
              usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     }
     
-    //TODO: handle table content to update
-//    [self.tableView reloadData];
+    //handle table content to update
+    [self.tableView reloadData];
+}
+
+
+#pragma mark - UITableViewDelegate methods
+
+// Customize the number of sections in the table view.
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.weather.forecasts count];
+}
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"ForecastCell";
+    
+    ForecastCell *cell = (ForecastCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[ForecastCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    // Configure the cell.
+    Forecast* forecastDay = [self.weather.forecasts objectAtIndex:indexPath.row];
+    
+    NSDateFormatter *weekdayFormatter = [[NSDateFormatter alloc] init];
+    [weekdayFormatter setLocale:[NSLocale currentLocale]];
+    [weekdayFormatter setDateFormat: @"EEEE"];
+    
+    NSString *title = [[NSString alloc] initWithFormat:@"%@: %@", [weekdayFormatter stringFromDate:forecastDay.date], [forecastDay getHiLoImperial:self.useImperial]];
+    cell.titleLabel.text = title;
+    
+    cell.backgroundColor = [UIColor clearColor];
+    
+    //there is valid hours forecast
+    if ([Validator isValidArray:forecastDay.hours]) {
+    
+        //TODO: change the hourly selected based on the current time of the day
+        HourlyWeather *hourly = forecastDay.hours[0];
+        cell.subtitleLabel.text = hourly.condition.weatherDescription;
+        
+        
+        if ([Validator isValidLengthString:hourly.condition.iconURL] ) {
+            
+            NSLog(@"URL: %@", hourly.condition.iconURL);
+            
+            //to avoid repeat the same image each time
+            cell.weatherImage.image = [UIImage new];
+            
+            //download image with SDWebImage and spinning
+            [cell.weatherImage setImageWithURL:[NSURL URLWithString:hourly.condition.iconURL]
+                              placeholderImage:nil
+                                       options:SDWebImageRefreshCached
+                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                         NSLog(@"Image Download Complete!");
+                                         
+                                         cell.weatherImage.image = [[image roundCornersWithRadius:3.0] imageScaledToSize:CGSizeMake(65, 65)];
+                                         
+                                     }
+                   usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        }
+    }
+    
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    CGFloat height = 70;
+    return height;
+}
+
+#pragma mark - PullToRefreshViewDelegate
+- (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view; {
+    [self loadWeather];
+}
+
+- (NSDate *)pullToRefreshViewLastUpdated:(PullToRefreshView *)view {
+    //return weather timestamp
+    return self.weather.timestamp;
 }
 
 @end

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ForecastCell" rowHeight="70" id="KGk-i7-Jjw" customClass="ForecastCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wednesday: 17º / 23º" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="9ng-dD-bUU" userLabel="titleLabel">
+                        <rect key="frame" x="63" y="10" width="245" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="fTf-3b-XuG"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="16"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqP-5D-uUN">
+                        <rect key="frame" x="8" y="10" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="LFh-W1-5Yq"/>
+                            <constraint firstAttribute="height" constant="45" id="w3k-wu-8gr"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sunny" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T2t-wF-LIM">
+                        <rect key="frame" x="63" y="35" width="245" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="1eC-ic-XJf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="9ng-dD-bUU" firstAttribute="top" secondItem="mqP-5D-uUN" secondAttribute="top" id="3E4-CF-arH"/>
+                    <constraint firstItem="T2t-wF-LIM" firstAttribute="top" secondItem="9ng-dD-bUU" secondAttribute="bottom" constant="-5" id="7Xw-Ph-drT"/>
+                    <constraint firstItem="9ng-dD-bUU" firstAttribute="centerY" secondItem="mqP-5D-uUN" secondAttribute="centerY" constant="-10" id="IQO-9P-tLc"/>
+                    <constraint firstItem="9ng-dD-bUU" firstAttribute="top" secondItem="mqP-5D-uUN" secondAttribute="top" id="Ozv-jv-JiK"/>
+                    <constraint firstItem="T2t-wF-LIM" firstAttribute="trailing" secondItem="9ng-dD-bUU" secondAttribute="trailing" id="PcB-Mh-m77"/>
+                    <constraint firstItem="mqP-5D-uUN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="QeN-MP-HOZ"/>
+                    <constraint firstItem="T2t-wF-LIM" firstAttribute="leading" secondItem="9ng-dD-bUU" secondAttribute="leading" id="Qfc-4i-FrG"/>
+                    <constraint firstItem="mqP-5D-uUN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="URa-gf-wru"/>
+                    <constraint firstItem="9ng-dD-bUU" firstAttribute="leading" secondItem="mqP-5D-uUN" secondAttribute="trailing" constant="10" id="ZeC-Cy-Jlo"/>
+                    <constraint firstItem="9ng-dD-bUU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="aZy-yi-QV4"/>
+                    <constraint firstItem="mqP-5D-uUN" firstAttribute="leading" secondItem="9ng-dD-bUU" secondAttribute="leading" id="b3Z-I0-5Zq"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="mqP-5D-uUN" secondAttribute="bottom" constant="10" id="iaL-cl-i0Q"/>
+                    <constraint firstItem="mqP-5D-uUN" firstAttribute="top" secondItem="9ng-dD-bUU" secondAttribute="bottom" constant="10" id="kBs-up-ORp"/>
+                    <constraint firstAttribute="trailing" secondItem="9ng-dD-bUU" secondAttribute="trailing" constant="12" id="p0f-Pz-1rr"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="b3Z-I0-5Zq"/>
+                        <exclude reference="kBs-up-ORp"/>
+                        <exclude reference="IQO-9P-tLc"/>
+                        <exclude reference="Ozv-jv-JiK"/>
+                        <exclude reference="aZy-yi-QV4"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="subtitleLabel" destination="T2t-wF-LIM" id="yDv-EH-GVO"/>
+                <outlet property="titleLabel" destination="9ng-dD-bUU" id="zFp-jf-u4b"/>
+                <outlet property="weatherImage" destination="mqP-5D-uUN" id="gjL-oB-JBp"/>
+            </connections>
+            <point key="canvasLocation" x="360" y="377"/>
+        </tableViewCell>
+    </objects>
+</document>

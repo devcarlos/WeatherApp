@@ -67,4 +67,21 @@
     return self;
 }
 
+#pragma mark - methods
+-(NSString*) getHiLoImperial:(BOOL)useImperial {
+    
+    // Hi/Low temps
+    if (useImperial) {
+        NSString *result = [NSString stringWithFormat:@"%d° / %d°",
+                            [self.maxtempF intValue],
+                            [self.mintempF intValue]];
+        return result;
+    } else {
+        NSString *result = [NSString stringWithFormat:@"%d° / %d°",
+                            [self.maxtempC intValue],
+                            [self.mintempC intValue]];
+        return result;
+    }
+}
+
 @end

@@ -23,4 +23,6 @@
 
 - (id)initWithAttributes:(NSDictionary *)data;
 
+-(NSString*) getHiLoImperial:(BOOL)useImperial;
+
 @end
