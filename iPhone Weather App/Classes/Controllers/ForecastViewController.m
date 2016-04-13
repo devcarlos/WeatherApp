@@ -66,6 +66,10 @@
 
 - (void)configureTable {
     
+    self.refreshView = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *) self.tableView];
+    [self.refreshView setDelegate:self];
+    [self.tableView addSubview:self.refreshView];
+    
     //register NIBs
     NSString *nibName = @"ForecastCell";
     [self.tableView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellReuseIdentifier:nibName];
@@ -111,6 +115,9 @@
                                             self.weather.timestamp = [NSDate date];
                                             
                                             [self updateForecast];
+                                            
+                                            //finished pull-to-refresh
+                                            [self.refreshView finishedLoading];
                                             
                                             [hud hide:YES];
                                             

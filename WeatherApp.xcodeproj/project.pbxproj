@@ -654,6 +654,7 @@
 		};
 		13FD4D761CB6C38800C3A92E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA17541087BD5DF5FD5B7484 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "iPhone Weather AppTests/Info.plist";
